@@ -2,7 +2,8 @@
 # Base image
 ################################################################################
 
-FROM nginx
+FROM ubuntu:latest
+MAINTAINER  Daniel Weiss "mail@weiss-daniel.de"
 
 ################################################################################
 # Build instructions
@@ -12,40 +13,37 @@ FROM nginx
 RUN rm -f /etc/nginx/conf.d/*
 
 # Install packages
-RUN apt-get update && apt-get install -my \
+RUN apt-get update && apt-get install -my software-properties-common && add-apt-repository ppa:ondrej/php
+RUN apt-get update && apt-get install -my --force-yes \
+  nginx \
+  vim \
+  htop \
   supervisor \
   curl \
   wget \
-  php5-curl \
-  php5-fpm \
-  php5-gd \
-  php5-memcached \
-  php5-mysql \
-  php5-mcrypt \
-  php5-sqlite \
-  php5-xdebug \
-  php-apc
+  php7.0-pgsql \
+  php7.0-common \
+  php7.0-fpm \
+  php7.0-mcrypt \
+  php7.0-curl \
+  php7.0-gd \
+  php7.0-json \
+  php7.0-cli \
+  php-xdebug \
+  php-memcached
 
-# Ensure that PHP5 FPM is run as root.
-RUN sed -i "s/user = www-data/user = root/" /etc/php5/fpm/pool.d/www.conf
-RUN sed -i "s/group = www-data/group = root/" /etc/php5/fpm/pool.d/www.conf
+# Ensure that PHP FPM is run as root.
+# TODO move FPM to own image
+RUN sed -i "s/user = www-data/user = root/" /etc/php/7.0/fpm/pool.d/www.conf
+RUN sed -i "s/group = www-data/group = root/" /etc/php/7.0/fpm/pool.d/www.conf
 
 # Pass all docker environment
-RUN sed -i '/^;clear_env = no/s/^;//' /etc/php5/fpm/pool.d/www.conf
+RUN sed -i '/^;clear_env = no/s/^;//' /etc/php/7.0/fpm/pool.d/www.conf
 
 # Get access to FPM-ping page /ping
-RUN sed -i '/^;ping\.path/s/^;//' /etc/php5/fpm/pool.d/www.conf
+RUN sed -i '/^;ping\.path/s/^;//' /etc/php/7.0/fpm/pool.d/www.conf
 # Get access to FPM_Status page /status
-RUN sed -i '/^;pm\.status_path/s/^;//' /etc/php5/fpm/pool.d/www.conf
-
-# Prevent PHP Warning: 'xdebug' already loaded.
-# XDebug loaded with the core
-RUN sed -i '/.*xdebug.so$/s/^/;/' /etc/php5/mods-available/xdebug.ini
-
-# Install HHVM
-RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
-RUN echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
-RUN apt-get update && apt-get install -y hhvm
+RUN sed -i '/^;pm\.status_path/s/^;//' /etc/php/7.0/fpm/pool.d/www.conf
 
 # Add configuration files
 COPY conf/nginx.conf /etc/nginx/
