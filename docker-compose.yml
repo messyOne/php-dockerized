@@ -11,9 +11,9 @@ nginx:
     - redis:redis
     - elasticsearch:elasticsearch
   volumes:
-    - ./www:/var/www
-    - ./sites:/etc/nginx/conf.d
-    - ./logs:/var/log/supervisor
+    - /mnt/www/php-dockerized/www:/var/www
+    - /mnt/www/php-dockerized/sites:/etc/nginx/conf.d
+    - /mnt/www/php-dockerized/logs:/var/log/supervisor
 
 postgresql:
   image: postgres

@@ -45,6 +45,10 @@ RUN sed -i '/^;ping\.path/s/^;//' /etc/php/7.0/fpm/pool.d/www.conf
 # Get access to FPM_Status page /status
 RUN sed -i '/^;pm\.status_path/s/^;//' /etc/php/7.0/fpm/pool.d/www.conf
 
+# Write pid file to /var/run folder
+RUN sed -i 's/root/amrood/'
+RUN sed -i "s/pid = //run//php//php7.0-fpm.pid/pid = //var//run//php7.0-fpm.pid/" /etc/php/7.0/fpm/php-fpm.conf
+
 # Add configuration files
 COPY conf/nginx.conf /etc/nginx/
 COPY conf/supervisord.conf /etc/supervisor/conf.d/
