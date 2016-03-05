@@ -3,27 +3,27 @@ nginx:
   ports:
     - "80:80"
     - "443:443"
-    - "9000:9000"
   links:
+    - fpm:fpm
     - postgresql:postgresql
-    - mongo:mongo
     - memcached:memcached
     - redis:redis
     - elasticsearch:elasticsearch
   volumes:
     - /mnt/www/php-dockerized/www:/var/www
     - /mnt/www/php-dockerized/sites:/etc/nginx/conf.d
-    - /mnt/www/php-dockerized/logs:/var/log/supervisor
+
+fpm:
+  build: fpm
+  ports:
+    - "9000:9000"
+  volumes:
+    - /mnt/www/php-dockerized/www:/var/www
 
 postgresql:
   image: postgres
   ports:
     - "5432:5432"
-
-mongo:
-  image: mongo
-  ports:
-    - "27017:27017"
 
 memcached:
   image: memcached
