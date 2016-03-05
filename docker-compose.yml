@@ -11,9 +11,9 @@ nginx:
     - redis:redis
     - elasticsearch:elasticsearch
   volumes:
-    - /mnt/www/php-dockerized/www:/var/www
-    - /mnt/www/php-dockerized/sites:/etc/nginx/conf.d
-    - /mnt/www/php-dockerized/logs:/var/log/supervisor
+    - ./www:/var/www
+    - ./sites:/etc/nginx/conf.d
+    - ./logs:/var/log/supervisor
 
 
 fpm:
@@ -21,7 +21,7 @@ fpm:
   ports:
     - "9000:9000"
   volumes:
-    - /mnt/www/php-dockerized/www:/var/www
+    - ./www:/var/www
 
 postgresql:
   image: postgres
