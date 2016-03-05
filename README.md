@@ -23,7 +23,7 @@ PHP Dockerized gives you everything you need for developing PHP 7 applications l
 
 ## Running
 
-Set up a Docker Machine, adjust the volume paths in the docker-compose.yml and then run:
+Set up a Docker Machine and then run:
 
 ```sh
 $ docker-compose up
