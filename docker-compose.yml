@@ -3,6 +3,7 @@ nginx:
   ports:
     - "80:80"
     - "443:443"
+    - "2222:22"
   links:
     - fpm:fpm
     - postgresql:postgresql
@@ -12,6 +13,8 @@ nginx:
   volumes:
     - /mnt/www/php-dockerized/www:/var/www
     - /mnt/www/php-dockerized/sites:/etc/nginx/conf.d
+    - /mnt/www/php-dockerized/logs:/var/log/supervisor
+
 
 fpm:
   build: fpm

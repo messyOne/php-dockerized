@@ -13,8 +13,9 @@ MAINTAINER  Daniel Weiss "mail@weiss-daniel.de"
 RUN rm -f /etc/nginx/conf.d/*
 
 # Install packages
-#RUN apt-get update && apt-get install -my software-properties-common && add-apt-repository ppa:ondrej/php
 RUN apt-get update && apt-get install -my --force-yes \
+  supervisor \
+  openssh-server \
   nginx \
   vim \
   htop \
@@ -23,6 +24,12 @@ RUN apt-get update && apt-get install -my --force-yes \
 
 # Add configuration files
 COPY conf/nginx.conf /etc/nginx/
+COPY conf/supervisord.conf /etc/supervisor/conf.d/
+
+# Configure openssh
+RUN mkdir /var/run/sshd
+RUN echo 'root:docker' | chpasswd
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 ################################################################################
 # Volumes
@@ -34,10 +41,10 @@ VOLUME ["/var/www", "/etc/nginx/conf.d"]
 # Ports
 ################################################################################
 
-EXPOSE 80 443
+EXPOSE 80 443 22
 
 ################################################################################
 # Entrypoint
 ################################################################################
 
-ENTRYPOINT ["/usr/sbin/nginx"]
+ENTRYPOINT ["/usr/bin/supervisord"]
