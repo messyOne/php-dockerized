@@ -1,18 +1,16 @@
 # PHP Dockerized
 
-> Dockerized PHP development stack: Nginx, MySQL, MongoDB, PHP-FPM, HHVM, Memcached, Redis, and Elasticsearch
+> Dockerized PHP development stack: Nginx, PostgreSQL, PHP-FPM (PHP 7), Memcached, Redis and Elasticsearch
 
 [![Build Status](https://travis-ci.org/kasperisager/php-dockerized.svg)](https://travis-ci.org/kasperisager/php-dockerized)
 
-PHP Dockerized gives you everything you need for developing PHP applications locally. The idea came from the need of having an OS-agnostic and virtualized alternative to the great [MNPP](https://github.com/jyr/MNPP) stack as regular LAMP stacks quite simply can't keep up with the Nginx + PHP-FPM/HHVM combo in terms of performance. I hope you'll find it as useful an addition to your dev-arsenal as I've found it!
+PHP Dockerized gives you everything you need for developing PHP 7 applications locally. 
 
 ## What's inside
 
 * [Nginx](http://nginx.org/)
-* [MySQL](http://www.mysql.com/)
-* [MongoDB](http://www.mongodb.org/)
+* [PostgreSQL](http://www.postgresql.org/)
 * [PHP-FPM](http://php-fpm.org/)
-* [HHVM](http://www.hhvm.com/)
 * [Memcached](http://memcached.org/)
 * [Redis](http://redis.io/)
 * [Elasticsearch](http://www.elasticsearch.org/)
@@ -25,7 +23,7 @@ PHP Dockerized gives you everything you need for developing PHP applications loc
 
 ## Running
 
-Set up a Docker Machine and then run:
+Set up a Docker Machine, adjust the volume paths in the docker-compose.yml and then run:
 
 ```sh
 $ docker-compose up
@@ -35,4 +33,4 @@ That's it! You can now access your configured sites via the IP address of the Do
 
 ## License
 
-Copyright &copy; 2014-2016 [Kasper Kronborg Isager](http://github.com/kasperisager). Licensed under the terms of the [MIT license](LICENSE.md).
+Licensed under the terms of the [MIT license](LICENSE.md).
