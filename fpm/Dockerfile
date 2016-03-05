@@ -35,6 +35,9 @@ RUN sed -i '/^;ping\.path/s/^;//' /etc/php/7.0/fpm/pool.d/www.conf
 # Get access to FPM_Status page /status
 RUN sed -i '/^;pm\.status_path/s/^;//' /etc/php/7.0/fpm/pool.d/www.conf
 
+# Listen on port 9000
+RUN sed -i '/^listen = /clisten = 0.0.0.0:9000' /etc/php/7.0/fpm/pool.d/www.conf
+
 # Create folder for pid and socket files
 RUN mkdir /var/run/php
 
