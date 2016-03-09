@@ -4,8 +4,8 @@ nginx:
     - "80:80"
     - "443:443"
     - "2222:22"
+    - "9000:9000"
   links:
-    - fpm:fpm
     - postgresql:postgresql
     - memcached:memcached
     - redis:redis
@@ -14,14 +14,6 @@ nginx:
     - ./www:/var/www
     - ./sites:/etc/nginx/conf.d
     - ./logs:/var/log/supervisor
-
-
-fpm:
-  build: fpm
-  ports:
-    - "9000:9000"
-  volumes:
-    - ./www:/var/www
 
 postgresql:
   image: postgres
