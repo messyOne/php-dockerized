@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -my --force-yes \
   htop \
   curl \
   wget \
+  git \
   php7.0-pgsql \
   php7.0-common \
   php7.0-fpm \
