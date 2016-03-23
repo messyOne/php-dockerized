@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -my --force-yes \
   php7.0-gd \
   php7.0-json \
   php7.0-cli \
+  php7.0-xml \
   php-xdebug \
   php-memcached
 
